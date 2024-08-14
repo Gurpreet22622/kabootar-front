@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+const ip = '192.168.29.172'
 
 function Chat() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [ws, setWs] = useState(null);
     const navigate = useNavigate();
-    const messagesEndRef = useRef(null); // Create a reference
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -16,7 +17,7 @@ function Chat() {
             return;
         }
 
-        axios.get('http://192.168.29.173:8080/getmsg', {
+        axios.get('http://'+ip+':8080/getmsg', {
             headers: {
                 'Token': localStorage.getItem('token')
             }
@@ -33,7 +34,7 @@ function Chat() {
             console.error('Error fetching previous messages:', error);
         });
 
-        const websocket = new WebSocket('ws://192.168.29.173:8080/ws');
+        const websocket = new WebSocket('ws://'+ip+':8080/ws');
 
         websocket.onopen = () => {
             console.log('WebSocket connection established');
@@ -54,7 +55,6 @@ function Chat() {
     }, [navigate]);
 
     useEffect(() => {
-        // Scroll to the bottom of the chat when messages are updated
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
@@ -80,7 +80,7 @@ function Chat() {
 
     const Logout = async () => {
         try {
-            const response = await axios.post('http://192.168.29.173:8080/logout', {}, {
+            const response = await axios.post('http://'+ip+':8080/logout', {}, {
                 headers: {
                     'Token': localStorage.getItem('token')
                 }
@@ -114,7 +114,7 @@ function Chat() {
                         </div>
                     </div>
                 ))}
-                <div ref={messagesEndRef} /> {/* Reference to scroll to */}
+                <div ref={messagesEndRef} /> 
             </div>
             <div className="input-container">
                 <input
