@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Modal from './Modal';
 
-const ip = 'kabootar.onrender.com'
+const ip = 'kabootar.onrender.com:8080'
 
 function Signup() {
     const [username, setUsername] = useState('');
