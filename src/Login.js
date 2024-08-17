@@ -15,7 +15,7 @@ function Login() {
         const authString = `Basic ${btoa(`${username}:${password}`)}`;
 
         try {
-            const response = await axios.post('https://'+ip+':8080/login', {}, {
+            const response = await axios.post('https://'+ip+'/login', {}, {
                 headers: {
                     'Authorization': authString
                 }

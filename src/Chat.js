@@ -17,7 +17,7 @@ function Chat() {
             return;
         }
 
-        axios.get('http://'+ip+':8080/getmsg', {
+        axios.get('https://'+ip+'/getmsg', {
             headers: {
                 'Token': localStorage.getItem('token')
             }
@@ -34,7 +34,7 @@ function Chat() {
             console.error('Error fetching previous messages:', error);
         });
 
-        const websocket = new WebSocket('ws://'+ip+':8080/ws');
+        const websocket = new WebSocket('ws://'+ip+'/ws');
 
         websocket.onopen = () => {
             console.log('WebSocket connection established');
@@ -80,7 +80,7 @@ function Chat() {
 
     const Logout = async () => {
         try {
-            const response = await axios.post('http://'+ip+':8080/logout', {}, {
+            const response = await axios.post('http://'+ip+'/logout', {}, {
                 headers: {
                     'Token': localStorage.getItem('token')
                 }

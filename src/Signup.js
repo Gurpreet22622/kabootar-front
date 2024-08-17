@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Modal from './Modal';
 
-const ip = '192.168.29.172'
+const ip = 'kabootar.onrender.com'
 
 function Signup() {
     const [username, setUsername] = useState('');
@@ -16,7 +16,7 @@ function Signup() {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://'+ip+':8080/create', {
+            const response = await axios.post('https://'+ip+'/create', {
                 username:username,
                 user_password: password
             }, {
