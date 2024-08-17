@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {useNavigate } from 'react-router-dom';
 import Modal from './Modal';
 import axios from 'axios';
-const ip = '192.168.29.172'
+const ip = 'kabootar.onrender.com'
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -15,7 +15,7 @@ function Login() {
         const authString = `Basic ${btoa(`${username}:${password}`)}`;
 
         try {
-            const response = await axios.post('http://'+ip+':8080/login', {}, {
+            const response = await axios.post('https://'+ip+':8080/login', {}, {
                 headers: {
                     'Authorization': authString
                 }

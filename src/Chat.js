@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const ip = '192.168.29.172'
+const ip = 'kabootar.onrender.com'
 
 function Chat() {
     const [messages, setMessages] = useState([]);
