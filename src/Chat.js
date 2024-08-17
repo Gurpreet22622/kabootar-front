@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const ip = 'kabootar.onrender.com:8080'
+const ip = 'kabootar.onrender.com'
 
 function Chat() {
     const [messages, setMessages] = useState([]);
@@ -80,7 +80,7 @@ function Chat() {
 
     const Logout = async () => {
         try {
-            const response = await axios.post('http://'+ip+'/logout', {}, {
+            const response = await axios.post('https://'+ip+'/logout', {}, {
                 headers: {
                     'Token': localStorage.getItem('token')
                 }
