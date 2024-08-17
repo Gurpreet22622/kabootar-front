@@ -80,7 +80,7 @@ function Chat() {
 
     const Logout = async () => {
         try {
-            const response = await axios.post('https://'+ip+'/logout', {}, {
+            await axios.post('https://'+ip+'/logout', {}, {
                 headers: {
                     'Token': localStorage.getItem('token')
                 }
