@@ -25,7 +25,6 @@ function Signup() {
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data)
 
             if (typeof response.data.id==='string') {
                 setShowModal2(true);

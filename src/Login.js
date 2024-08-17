@@ -20,7 +20,6 @@ function Login() {
                     'Authorization': authString
                 }
             });
-            console.log(typeof response.data==='string')
 
             if (typeof response.data==='string') {
                 localStorage.setItem('token', response.data);
