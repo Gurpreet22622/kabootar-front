@@ -73,7 +73,7 @@ function Login() {
           <label htmlFor="loginPassword">Password</label>
         </div>
         <input type="submit" value="Login" className="submit-btn"/>
-        <input type='button' value="New user?" onClick={CreateUser}/>
+        {/* <input type='button' value="New user?" onClick={CreateUser}/> */}
       </form>
 
       {showModal && (
