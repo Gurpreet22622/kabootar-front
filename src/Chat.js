@@ -10,14 +10,14 @@ function Chat() {
     const navigate = useNavigate();
     const messagesEndRef = useRef(null);
 
-    useEffect(() => {
+    useEffect(async () => {
         const token = localStorage.getItem('token');
         if (!token) {
             navigate('/');
             return;
         }
 
-        axios.get('https://'+ip+'/getmsg', {
+        await axios.get('https://'+ip+'/getmsg', {
             headers: {
                 'Token': localStorage.getItem('token')
             }
