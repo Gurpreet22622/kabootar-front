@@ -10,29 +10,47 @@ function Chat() {
     const navigate = useNavigate();
     const messagesEndRef = useRef(null);
 
-    useEffect(async () => {
+    useEffect( () => {
         const token = localStorage.getItem('token');
         if (!token) {
             navigate('/');
             return;
         }
-
-        await axios.get('https://'+ip+'/getmsg', {
-            headers: {
-                'Token': localStorage.getItem('token')
-            }
-        })
-        .then(response => {
-            if(response.data){
-                setMessages(pm => response.data.map((item) => {
-                    return { "username": item[2], "message": item[0] };
-                }));
-            }
+        async function getData() {
+            await axios.get('https://'+ip+'/getmsg', {
+                headers: {
+                    'Token': localStorage.getItem('token')
+                }
+            })
+            .then(response => {
+                if(response.data){
+                    setMessages(pm => response.data.map((item) => {
+                        return { "username": item[2], "message": item[0] };
+                    }));
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error fetching previous messages:', error);
+            });
+        }
+        getData();
+        // await axios.get('https://'+ip+'/getmsg', {
+        //     headers: {
+        //         'Token': localStorage.getItem('token')
+        //     }
+        // })
+        // .then(response => {
+        //     if(response.data){
+        //         setMessages(pm => response.data.map((item) => {
+        //             return { "username": item[2], "message": item[0] };
+        //         }));
+        //     }
             
-        })
-        .catch(error => {
-            console.error('Error fetching previous messages:', error);
-        });
+        // })
+        // .catch(error => {
+        //     console.error('Error fetching previous messages:', error);
+        // });
 
         const websocket =new WebSocket('wss://'+ip+'/ws');
 
