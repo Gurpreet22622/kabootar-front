@@ -34,7 +34,7 @@ function Chat() {
             console.error('Error fetching previous messages:', error);
         });
 
-        const websocket = new WebSocket('ws://'+ip+'/ws');
+        const websocket =await new WebSocket('ws://'+ip+'/ws');
 
         websocket.onopen = () => {
             console.log('WebSocket connection established');
