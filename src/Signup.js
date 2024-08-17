@@ -1,31 +1,34 @@
-import React, { useState } from 'react';
-import {useNavigate } from 'react-router-dom';
-import Modal from './Modal';
+import React, { useState,} from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-const ip = 'kabootar.onrender.com'
+import Modal from './Modal';
 
-function Login() {
+const ip = '192.168.29.172'
+
+function Signup() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const authString = `Basic ${btoa(`${username}:${password}`)}`;
 
         try {
-            const response = await axios.post('https://'+ip+':8080/login', {}, {
-                headers: {
-                    'Authorization': authString
+            const response = await axios.post('http://'+ip+':8080/create', {
+                username:username,
+                user_password: password
+            }, {
+                headers: 
+                {
+                    'Content-Type': 'application/json'
                 }
             });
-            console.log(typeof response.data==='string')
+            console.log(response.data)
 
-            if (typeof response.data==='string') {
-                localStorage.setItem('token', response.data);
-                localStorage.setItem('username',username);
-                navigate('/chat');
+            if (typeof response.data.id==='string') {
+                setShowModal2(true);
                 
             }else{
               setShowModal(true);
@@ -38,18 +41,17 @@ function Login() {
   const handleCloseModal = () => {
     setShowModal(false);
   };
+  const handleCloseModal2 = () => {
+    setShowModal2(false);
+    navigate('/');
+  };
 
-  const CreateUser=()=>{
-    navigate('/signup');
-  }
-
-    return (
-      
+    return(
         <div className="login-wrapper">
           <link rel="stylesheet" href="style.css"></link>
       <form onSubmit={handleSubmit} className="form">
         <img src="k2.jpeg" alt=""/>
-        <h2>Login</h2>
+        <h2>Sign up</h2>
         <div className="input-group">
           <input
             type="text"
@@ -74,17 +76,23 @@ function Login() {
           <label htmlFor="loginPassword">Password</label>
         </div>
         <input type="submit" value="Login" className="submit-btn"/>
-        <input type='button' value="New user?" onClick={CreateUser}/>
       </form>
 
       {showModal && (
         <Modal onClose={handleCloseModal}>
           <h2>OOPsiee</h2>
-          <p>You are not our member!</p>
+          <p>Member alredy exist!</p>
         </Modal>
       )}
+      {showModal2 && (
+        <Modal onClose={handleCloseModal2}>
+          <h2>Yayy</h2>
+          <p>Member created!</p>
+        </Modal>
+      )}
+
     </div>
     );
 }
 
-export default Login;
+export default Signup;
